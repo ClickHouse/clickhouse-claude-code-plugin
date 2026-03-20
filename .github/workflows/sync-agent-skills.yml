@@ -24,7 +24,7 @@ jobs:
 
       - name: Copy skills from submodule
         run: |
-          rsync -a --delete \
+          rsync -a --delete --exclude README.md \
             submodules/agent-skills/skills/clickhouse-best-practices/ \
             skills/clickhouse-best-practices/
 

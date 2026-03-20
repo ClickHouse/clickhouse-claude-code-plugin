@@ -7,18 +7,13 @@ The official Claude Code Plugin for [ClickHouse](https://clickhouse.com/). Exten
 Install from the Claude Code plugin directory (pending marketplace approval):
 
 ```bash
-claude plugin install clickhouse
+claude plugin install clickhouse@claude-plugins-official
 ```
 
-Or install directly from GitHub:
+Or clone the repo and load it directly:
 
 ```bash
-claude plugin install --url https://github.com/ClickHouse/clickhouse-claude-code-plugin
-```
-
-For local development, clone the repo and load it directly:
-
-```bash
+git clone --recursive https://github.com/ClickHouse/clickhouse-claude-code-plugin
 claude --plugin-dir ./clickhouse-claude-code-plugin
 ```
 
@@ -26,7 +21,6 @@ claude --plugin-dir ./clickhouse-claude-code-plugin
 
 - **Skills** — 28 ClickHouse best practice rules covering schema design, query optimization, and data ingestion, applied automatically when you work with ClickHouse
 - **MCP Server** — connects Claude Code to the [ClickHouse Cloud Remote MCP server](https://clickhouse.com/docs/cloud/features/ai-ml/remote-mcp) for schema inspection and read-only SQL queries against your clusters
-- **Rules** — ClickHouse-specific rules automatically applied during coding sessions
 
 ## Skills overview
 
