@@ -1,0 +1,55 @@
+name: Sync Agent Skills
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # Weekly on Monday at 6am UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Update submodule to latest
+        run: |
+          git submodule update --init --remote submodules/agent-skills
+
+      - name: Copy skills from submodule
+        run: |
+          rsync -a --delete \
+            submodules/agent-skills/skills/clickhouse-best-practices/ \
+            skills/clickhouse-best-practices/
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet skills/clickhouse-best-practices/ submodules/; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create PR
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          BRANCH="auto/sync-agent-skills-$(date +%Y%m%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add skills/clickhouse-best-practices/ submodules/agent-skills
+          git commit -m "sync: update skills from agent-skills"
+          git push origin "$BRANCH"
+          gh pr create \
+            --title "sync: update skills from agent-skills" \
+            --body "Automated sync of best-practice rules from [ClickHouse/agent-skills](https://github.com/ClickHouse/agent-skills)." \
+            --base main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

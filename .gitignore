@@ -1,0 +1,18 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# OS and editor
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Logs and temp
+*.log
+tmp/
+temp/
+
+# Dependencies
+node_modules/

@@ -4,14 +4,28 @@ The official Claude Code Plugin for [ClickHouse](https://clickhouse.com/). Exten
 
 ## Installation
 
+Install from the Claude Code plugin directory (pending marketplace approval):
+
 ```bash
-claude plugin add clickhouse/agent-skills
+claude plugin install clickhouse
+```
+
+Or install directly from GitHub:
+
+```bash
+claude plugin install --url https://github.com/ClickHouse/clickhouse-claude-code-plugin
+```
+
+For local development, clone the repo and load it directly:
+
+```bash
+claude --plugin-dir ./clickhouse-claude-code-plugin
 ```
 
 ## What's included
 
 - **Skills** — 28 ClickHouse best practice rules covering schema design, query optimization, and data ingestion, applied automatically when you work with ClickHouse
-- **MCP Server** — connects Claude Code to the [ClickHouse MCP server](https://mcp.clickhouse.cloud/mcp) for live documentation and query capabilities
+- **MCP Server** — connects Claude Code to the [ClickHouse Cloud Remote MCP server](https://clickhouse.com/docs/cloud/features/ai-ml/remote-mcp) for schema inspection and read-only SQL queries against your clusters
 - **Rules** — ClickHouse-specific rules automatically applied during coding sessions
 
 ## Skills overview
@@ -31,6 +45,10 @@ claude plugin add clickhouse/agent-skills
 | JSON Usage | 1 | MEDIUM |
 
 See [`skills/clickhouse-best-practices/`](./skills/clickhouse-best-practices/) for details.
+
+## Keeping skills up to date
+
+Best practice rules are sourced from [ClickHouse/agent-skills](https://github.com/ClickHouse/agent-skills) and kept in sync via a weekly GitHub Action that opens a PR when upstream changes are detected. The source is tracked as a git submodule at `submodules/agent-skills`.
 
 ## License
 

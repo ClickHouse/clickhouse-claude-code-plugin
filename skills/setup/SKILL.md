@@ -6,15 +6,15 @@ disable-model-invocation: true
 
 # ClickHouse Plugin Setup
 
-This plugin includes a remote MCP server at `https://mcp.clickhouse.cloud/mcp` that gives you access to ClickHouse documentation, query assistance, and live cluster interaction.
+This plugin includes the [ClickHouse Cloud Remote MCP server](https://clickhouse.com/docs/cloud/features/ai-ml/remote-mcp) at `https://mcp.clickhouse.cloud/mcp`. It provides secure, read-only access to your ClickHouse Cloud clusters.
 
 ## Setup Steps
 
 1. **Verify the MCP server is connected**: Check that the ClickHouse MCP server appears in your available tools. If it does, you're ready to go.
 
-2. **If the server requires authentication**: The ClickHouse MCP server may prompt for authentication via OAuth or API key. Follow the prompts to authorize access to your ClickHouse Cloud account.
+2. **Authenticate via OAuth**: The MCP server uses OAuth with your ClickHouse Cloud credentials. Follow the prompts when first connecting to authorize access.
 
-3. **Test the connection**: Try a simple request to the MCP server to confirm it's working, such as asking for ClickHouse documentation or running a test query.
+3. **Test the connection**: Try listing databases or running a simple SELECT query to confirm everything works.
 
 ## Troubleshooting
 
@@ -24,11 +24,14 @@ This plugin includes a remote MCP server at `https://mcp.clickhouse.cloud/mcp` t
 
 ## What the MCP Server Provides
 
-Once connected, the ClickHouse MCP server extends Claude with:
+Once connected, the ClickHouse MCP server provides:
 
-- Live ClickHouse documentation lookups
-- Query assistance and optimization suggestions
-- Direct interaction with ClickHouse Cloud clusters (when authenticated)
+- **List databases** on your ClickHouse Cloud cluster
+- **List tables** in a database
+- **Inspect schemas** for table structure
+- **Run read-only SELECT queries** against your cluster
+
+All queries are scoped to SELECT operations for security. See the [ClickHouse MCP docs](https://clickhouse.com/docs/use-cases/AI/MCP/remote_mcp) for details.
 
 ## Best Practices Skill
 
