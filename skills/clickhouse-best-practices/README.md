@@ -7,13 +7,14 @@ Agent skill providing comprehensive ClickHouse guidance for schema design, query
 This skill is included as part of the [ClickHouse Claude Code plugin](https://github.com/ClickHouse/clickhouse-claude-code-plugin). Install the plugin to get this skill automatically (pending marketplace approval):
 
 ```bash
-claude plugin install clickhouse
+claude plugin install clickhouse@claude-plugins-official
 ```
 
-Or install directly from GitHub:
+Or clone the repo and load it directly:
 
 ```bash
-claude plugin install --url https://github.com/ClickHouse/clickhouse-claude-code-plugin
+git clone --recursive https://github.com/ClickHouse/clickhouse-claude-code-plugin
+claude --plugin-dir ./clickhouse-claude-code-plugin
 ```
 
 ## What's Included
