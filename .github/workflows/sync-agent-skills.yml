@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   sync:
@@ -37,19 +36,11 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Create PR
+      - name: Push changes directly
         if: steps.diff.outputs.changed == 'true'
         run: |
-          BRANCH="auto/sync-agent-skills-$(date +%Y%m%d)"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b "$BRANCH"
           git add skills/clickhouse-best-practices/ submodules/agent-skills
           git commit -m "sync: update skills from agent-skills"
-          git push origin "$BRANCH"
-          gh pr create \
-            --title "sync: update skills from agent-skills" \
-            --body "Automated sync of best-practice rules from [ClickHouse/agent-skills](https://github.com/ClickHouse/agent-skills)." \
-            --base main
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git push origin main
